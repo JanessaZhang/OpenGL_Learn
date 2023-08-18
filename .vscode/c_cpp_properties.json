@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+				"/usr/local/include/opencv4",
+                "/usr/local/include/opencv4/opencv2",
+                "${workspaceFolder}/**",
+				"src",
+				"src/vendor"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/local/llvm/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-clang-x64"
+        }
+    ],
+    "version": 4
+}

@@ -1,0 +1,4 @@
+/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/build/CMakeFiles/glad.dir
+/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/build/CMakeFiles/main.dir
+/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/build/CMakeFiles/edit_cache.dir
+/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/build/CMakeFiles/rebuild_cache.dir
