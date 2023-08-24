@@ -9,9 +9,9 @@ shader::shader(const std::string& filepath) :
     std::cout << "init" << std::endl;
 }
 
-// shader::~shader() {
-//     glDeleteProgram(m_RendererID);
-// }
+shader::~shader() {
+    glDeleteProgram(m_RendererID);
+}
 
 void shader::Bind() {
     glUseProgram(m_RendererID);

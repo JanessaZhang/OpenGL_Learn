@@ -72,9 +72,9 @@ Texture::Texture(const std::string& path) :
         stbi_image_free(m_LocalBuffer);
 }
 
-//Texture::~Texture() {
-//   glDeleteTextures(1, &m_RendererID);
-//}
+Texture::~Texture() {
+  glDeleteTextures(1, &m_RendererID);
+}
 
 void Texture::Bind(unsigned int slot )const  //默认绑定到纹理卡槽0
 {

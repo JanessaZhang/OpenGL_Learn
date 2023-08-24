@@ -12,7 +12,7 @@ private:
 public:
     unsigned int m_RendererID;
     Texture(const std::string& path);
-    // ~Texture();
+    ~Texture();
 
     void Bind(unsigned int slot = 0)const ; //默认绑定到纹理卡槽0
     void Unbind()const ;

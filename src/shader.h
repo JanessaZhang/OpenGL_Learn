@@ -29,7 +29,7 @@ public:
 	unsigned int m_RendererID;
 	
     shader(const std::string& filepath);
-    // ~shader();
+    ~shader();
 
     void Bind();
     void Unbind(); 

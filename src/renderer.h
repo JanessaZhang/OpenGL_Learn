@@ -5,6 +5,7 @@
 #include "vertexarray.h"
 #include "indexbuffer.h"
 #include "shader.h"
+#include <string>
 
 
 #define ASSERT(x) if(!(x) __debugbreak());
@@ -22,6 +23,9 @@ private:
 public:
 	void Clear()const;
 	void Draw(vertexarray& va,indexbuffer& ib,shader& mshader)const;
+	// void Draw(vertexarray& va,indexbuffer& ib,shader& mshader,std::string type)const;
+	void Draw(vertexarray& va,shader& mshader,int point_num,std::string type)const;
+
 	void Draw(int first,int count)const;
 };
 

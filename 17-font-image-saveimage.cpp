@@ -85,7 +85,7 @@ int main() {
 		}
 
 		// find path to font
-		std::string font_name = "resources/fonts/OCRAEXT.TTF";
+		std::string font_name = "res/fonts/OCRAEXT.TTF";
 		if (font_name.empty())
 		{
 			std::cout << "ERROR::FREETYPE: Failed to load font_name" << std::endl;
@@ -166,8 +166,8 @@ int main() {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         //************************************************************************image**************************************************************
-		float size_x=1280.0;
-		float size_y=720.0;
+		float size_x=640.0;
+		float size_y=480.0;
 		float init_x=0.0;
 		float init_y=0.0;
 		float positions[] = {init_x,
@@ -220,6 +220,49 @@ int main() {
 		mshader.Bind();
 		mshader.SetUniformMat4("u_MVP", mvp);
 
+        //************************************************************************point**************************************************************
+		// float point_size_x=100.0;
+		// float point_size_y=100.0;
+		// float point_init_x=800.0;
+		// float point_init_y=800.0;
+		// float point_positions[] = {point_init_x,
+		// 					point_init_y,
+		// 					0.0,
+		// 					0.0,
+		// 					point_init_x+point_size_x,
+		// 					point_init_y,
+		// 					1.0,
+		// 					0.0,
+		// 					point_init_x+point_size_x,
+		// 					point_init_y+point_size_y,
+		// 					1.0,
+		// 					1.0,
+		// 					point_init_x,
+		// 					point_init_y+point_size_y,
+		// 					0.0,
+		// 					1.0};
+
+		// unsigned int point_indices[] = {0, 1, 2, 2, 3, 0};
+
+
+		// vertexarray point_va;
+		// vertexbuffer point_vb(point_positions, sizeof(float) * 4 * 4);
+		// vertexbufferlayout point_layout;
+		// point_layout.Push<float>(2);
+		// point_layout.Push<float>(2);
+		// point_va.AddBuffer(point_vb, point_layout);
+		// indexbuffer point_ib(indices, 6);
+		// shader point_mshader("res/shader/point.shader");
+		// point_mshader.Bind();
+
+		// glm::vec4 vec4_v(1.0, 0.3, 0.5, 1.0);
+    	// point_mshader.SetUniform4f("u_color", vec4_v);
+		// renderer point_mrenderer;
+		
+
+
+
+
         //************************************************************************opencv**************************************************************
 
 		// //保存图片
@@ -234,7 +277,22 @@ int main() {
 				RenderText(ashader, "resolution: 1280*720", 10.f, 700.0f, 0.5f, glm::vec3(0.5, 0.8f, 0.2f));
 				RenderText(ashader, "task_name : opengl_display_image", 10.0f, 680.0f, 0.5f, glm::vec3(0.3, 0.7f, 0.9f));
 
-				SaveImage();
+				// mrenderer.Draw(point_va, point_ib, point_mshader,"points");
+				// SaveImage();
+
+				// cv::Mat img(720, 1280, CV_8UC3);
+				// glPixelStorei(GL_PACK_ALIGNMENT, (img.step & 3) ? 1 : 4);
+				// // glPixelStorei(GL_PACK_ROW_LENGTH, img.step/img.elemSize()); // 这句不加好像也没问题？
+				// glReadPixels(0, 0, img.cols, img.rows, GL_BGR, GL_UNSIGNED_BYTE, img.data);
+				// cv::Mat flipped;
+				// cv::flip(img, flipped, 0);
+				// {
+				// 	mtx.lock();
+				// 	sprintf(image_path, "/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/out_opengl/%d.jpg", ++num);
+				// 	imwrite(image_path, flipped);
+				// 	// cv::imshow("opencv window", img);
+				// 	mtx.unlock();
+				// }
 
 				// 交换buffer，进行显示
 				glfwSwapBuffers(window);
@@ -261,34 +319,34 @@ void RenderText(shader &ashader, std::string text, float x, float y, float scale
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++) 
     {
-	Character ch = Characters[*c];
+		Character ch = Characters[*c];
 
-	float xpos = x + ch.Bearing.x * scale;
-	float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+		float xpos = x + ch.Bearing.x * scale;
+		float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
 
-	float w = ch.Size.x * scale;
-	float h = ch.Size.y * scale;
-	// update VBO for each character
-	float vertices[6][4] = {
-	    { xpos,     ypos + h,   0.0f, 0.0f },	    
-	    { xpos,     ypos,       0.0f, 1.0f },
-	    { xpos + w, ypos,       1.0f, 1.0f },
+		float w = ch.Size.x * scale;
+		float h = ch.Size.y * scale;
+		// update VBO for each character
+		float vertices[6][4] = {
+			{ xpos,     ypos + h,   0.0f, 0.0f },	    
+			{ xpos,     ypos,       0.0f, 1.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
 
-	    { xpos,     ypos + h,   0.0f, 0.0f },
-	    { xpos + w, ypos,       1.0f, 1.0f },
-	    { xpos + w, ypos + h,   1.0f, 0.0f }	   
-	};
-	// render glyph texture over quad
-	glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-	// update content of VBO memory
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
+			{ xpos,     ypos + h,   0.0f, 0.0f },
+			{ xpos + w, ypos,       1.0f, 1.0f },
+			{ xpos + w, ypos + h,   1.0f, 0.0f }	   
+		};
+		// render glyph texture over quad
+		glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+		// update content of VBO memory
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // be sure to use glBufferSubData and not glBufferData
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	// render quad
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	// now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-	x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		// render quad
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		// now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+		x += (ch.Advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -320,8 +378,9 @@ void SaveImage()
 	cv::flip(img, flipped, 0);
 	{
 		mtx.lock();
-		sprintf(image_path, "/home/shasha/Janessa/vscode/OpenGl/Opengl_zss/out_opengl/%d.jpg", ++num);
-		imwrite(image_path, flipped);
+		sprintf(image_path, "out_opengl/%d.jpg", ++num);
+		// imwrite(image_path, flipped);
+		std::cout<<flipped.cols<<"          "<<flipped.rows<<std::endl;
 		// cv::imshow("opencv window", img);
 		mtx.unlock();
 	}

@@ -50,7 +50,7 @@ m_View(glm::translate(glm::mat4(1.0), glm::vec3(0, 0, 0)))
     m_shader=std::make_unique<shader>("res/shader/basic.shader");
 
     m_shader->Bind();
-	glm::vec4 vec4_v(0.2, 0.3, 0.5, 1.0);
+	glm::vec4 vec4_v(1.0, 0.3, 0.5, 1.0);
     m_shader->SetUniform4f("u_color", vec4_v);
 
 	m_Texture=std::make_unique<Texture>("res/shader/4.jpg");
